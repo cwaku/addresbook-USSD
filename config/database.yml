@@ -1,0 +1,14 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  timeout: 60
+  pool: 2
+
+development:
+  <<: *default
+  host: 'localhost'
+  port: 4044
+  database: ricky
+  username: ricky
+  password: dirtycode
+  prepared_statements: false
