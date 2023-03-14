@@ -3,5 +3,5 @@
 require 'sinatra'
 
 post '/' do
-  Dial::Manager.rew(request.body.read).process
+  Dial::Manager.new(request.body.read).process
 end
