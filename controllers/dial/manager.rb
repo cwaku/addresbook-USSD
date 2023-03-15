@@ -22,6 +22,8 @@ module Dial
 
     def initial_dial
       # TODO: Add logic to handle initial dial
+      # Menu::Main.process(@params.merge(page: '1', activity_type: 'request'))
+      Menu::Main.process(@params.merge(page: '1', activity_type: 'request'))
     end
 
     def continous_dial
