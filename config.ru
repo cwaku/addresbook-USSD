@@ -3,12 +3,17 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'rubocop'
+require 'redis'
 
 disable :run, :reload
 
+configure do
+  $redis = Redis.new(host: 'localhost', port: 6379)
+end
+
 require './app'
 require './controllers/init'
-# require './models/init'
-# reqiure './utils/init'
+require './models/init'
+reqiure './utils/init'
 
 run Sinatra::Application

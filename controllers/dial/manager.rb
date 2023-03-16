@@ -13,7 +13,7 @@ module Dial
       case @message_type
       when '0'
         initial_dial
-      when 'continous_dial'
+      when '1'
         continous_dial
       end
     end
@@ -28,6 +28,7 @@ module Dial
 
     def continous_dial
       # TODO: Add logic to handle continous dial
+      Menu::Manager.process(@params)
     end
   end
 end
