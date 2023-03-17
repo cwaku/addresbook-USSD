@@ -5,9 +5,9 @@ module Page
     class Phone < Menu::Base
       def process
         case @activity_type
-        when 'request'
+        when REQUEST
           display_current_page
-        when 'response'
+        when RESPONSE
           process_response
         end
       end
@@ -18,7 +18,7 @@ module Page
 
       def display_current_page
         display_page({
-                       activity_type: 'response',
+                       activity_type: RESPONSE,
                        page: '3',
                        menu_function: 'add_contact'
                      })

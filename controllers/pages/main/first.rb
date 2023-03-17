@@ -6,9 +6,9 @@ module Page
       def process
         # TODO: Add logic to check and render page with activity type
         case @activity_type
-        when 'request'
+        when REQUEST
           display_current_page
-        when 'response'
+        when RESPONSE
           process_response
         end
       end
@@ -21,17 +21,13 @@ module Page
         case @ussd_body
         when '1'
           # TODO: Add logic to handle option 1 to request for first name of contact
-          # display_page({
-          #                activity_type: 'request',
-          #                page: '2',
-          #                menu_function: 'add_contact'
-          #              })
-          Page::Contact::First.process(@params.merge({ activity_type: 'request', page: '1',
+
+          Page::Contact::First.process(@params.merge({ activity_type: REQUEST, page: '1',
                                                        menu_function: 'add_contact' }))
         when '2'
           # TODO: Add logic to handle option 2 to view contacts
           display_page({
-                         activity_type: 'request',
+                         activity_type: REQUEST,
                          page: '2',
                          menu_function: 'view_contacts'
                        })
@@ -41,9 +37,9 @@ module Page
       def display_current_page
         # display current page
         display_page({
-                       activity_type: 'response',
+                       activity_type: RESPONSE,
                        page: '1',
-                       menu_function: 'main_menu'
+                       menu_function: MAIN_MENU
                      })
       end
 

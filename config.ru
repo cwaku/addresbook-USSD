@@ -14,6 +14,6 @@ end
 require './app'
 require './controllers/init'
 require './models/init'
-reqiure './utils/init'
+require './utils/init'
 
 run Sinatra::Application
