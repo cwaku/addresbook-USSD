@@ -16,7 +16,7 @@ module Page
 
       def process_response
         puts 'Processing response for last name of contact'
-        Page::Contact::Phone.process(@params.merge({ activity_type:   REQUEST, page: '3',
+        Page::Contact::Phone.process(@params.merge({ activity_type: REQUEST, page: '3',
                                                      menu_function: 'add_contact' }))
       end
 

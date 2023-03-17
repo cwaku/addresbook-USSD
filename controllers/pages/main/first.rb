@@ -22,8 +22,8 @@ module Page
         when '1'
           # TODO: Add logic to handle option 1 to request for first name of contact
 
-          Page::Contact::First.process(@params.merge({ activity_type: REQUEST, page: '1',
-                                                       menu_function: 'add_contact' }))
+          Menu::Contact.process(@params.merge({ activity_type: REQUEST, page: '1',
+                                                menu_function: 'add_contact' }))
         when '2'
           # TODO: Add logic to handle option 2 to view contacts
           display_page({

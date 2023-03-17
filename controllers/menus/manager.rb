@@ -10,7 +10,7 @@ module Menu
       when 'main_menu'
         Menu::Main.process(params)
       when 'add_contact'
-        Menu::CreateContact.process(params)
+        Menu::Contact.process(params)
       when 'confirmation'
         Menu::Confirm.process(params)
       end
