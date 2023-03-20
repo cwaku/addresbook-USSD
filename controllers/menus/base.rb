@@ -6,6 +6,7 @@ module Menu
       @params = params
       @tracker = params[:tracker]
       @activity_type = @params[:activity_type] || @tracker&.activity_type
+      @menu_function = @params[:menu_function] || @tracker&.menu_function
       @ussd_body = @params[:ussd_body]
       @message_prepend = @params[:message_prepend].to_s
       @mobile_number = @params[:msisdn]
@@ -16,16 +17,14 @@ module Menu
     def fetch_data
       @cache = Cache.fetch(@params).cache
       @data = JSON.parse(@cache).with_indifferent_access
-      # Get all contacts that belongs to user_number index
-      # @data = Contact.where(user_number: user_number)
     end
 
     def display_contatcs(user_number)
       @contacts = Contact.where(user_number: user_number)
       message = ''
-      @contacts.each do |contact, index|
+      @contacts.each_with_index do |contact, index|
         message += <<~MSG
-          #{index + 1}. First Name: #{contact.first_name} Last Name: #{contact.last_name} Phone: #{contact.phone_number}
+          #{index + 1}. First Name: #{contact.first_name} Last Name: #{contact.last_name} Phone: #{contact.mobile_number}
         MSG
       end
       message
@@ -71,6 +70,32 @@ module Menu
 
       Session::Manager.continue(@params.merge(display_message: display_message))
     end
+
+    def save_info
+      # save contact info here
+      info = {
+          first_name: @data['first_name'],
+          last_name: @data['last_name'],
+          mobile_number: @data['mobile_number'],
+          user_number: @data['user_number']
+      }
+
+      # check menu function
+      puts "Heeeeeeeeeey #{@data['menu_function']}"
+      case @data['menu_function']
+      when 'add_contact'
+        # add contact
+        Contact.create(info)
+      #   @contact.save
+      when 'edit_contact'
+        # edit contact
+        # @contact = Contact.find(@data['contact_id'])
+        @contact.update(info)
+      end
+    end
+
+
+    
 
     private
 

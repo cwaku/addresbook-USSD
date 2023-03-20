@@ -16,9 +16,9 @@ module Page
         private
 
         def process_response
-          puts 'Processing response for last name of contact'
+          save_data
           Page::Contact::Create::Phone.process(@params.merge({ activity_type: REQUEST, page: '3',
-                                                               menu_function: 'add_contact' }))
+                                                               menu_function: ADD_CONTACT }))
         end
 
         def display_current_page
@@ -38,6 +38,10 @@ module Page
 
           # set @message_prepend to message
           @message_prepend + message
+        end
+
+        def save_data
+          store_data({ last_name: @ussd_body })
         end
       end
     end

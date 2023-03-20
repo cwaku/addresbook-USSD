@@ -40,7 +40,7 @@ module Page
           update_message = <<~MSG
             Please select the contact you want to edit
           MSG
-          @message_prepend + message + update_message
+          @message_prepend + update_message + message
           #   @message_prepend += message
 
           #   @data.each do |contact, index|

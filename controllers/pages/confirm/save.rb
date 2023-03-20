@@ -4,7 +4,7 @@ module Page
   module Confirm
     class Save < Menu::Base
       def process
-        # fetch_data
+        fetch_data
         case @activity_type
         when REQUEST
           display_current_page
@@ -19,9 +19,10 @@ module Page
         case @ussd_body
         when '1'
           # Save contact here
-          Page::Main::First.process(@params.merge(activity_type: REQUEST))
+          save_info
+          display_main_menu({ activity_type: REQUEST })
         when '2'
-          Page::Main::First.process(@params.merge(activity_type: REQUEST))
+          display_main_menu({ activity_type: REQUEST })
         when '00'
           end_session('Process Aborted')
         else
@@ -50,6 +51,9 @@ module Page
 
         @message_prepend + message
       end
+
+      
+      
     end
   end
 end

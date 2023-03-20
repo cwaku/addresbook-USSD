@@ -16,6 +16,7 @@ module Page
         private
 
         def process_response
+          save_data
           Page::Confirm::Save.process(@params.merge(activity_type: REQUEST))
         end
 
@@ -23,7 +24,7 @@ module Page
           display_page({
                          activity_type: RESPONSE,
                          page: '3',
-                         menu_function: 'add_contact'
+                         menu_function: ADD_CONTACT
                        })
         end
 
@@ -36,6 +37,10 @@ module Page
 
           # set @message_prepend to message
           @message_prepend + message
+        end
+
+        def save_data
+          store_data({ mobile_number: @ussd_body, menu_function: ADD_CONTACT, user_number: @mobile_number })
         end
       end
     end

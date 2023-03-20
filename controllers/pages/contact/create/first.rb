@@ -7,19 +7,14 @@ module Page
         def process
           case @activity_type
           when REQUEST
-            # TODO: Add logic to handle request for first name of contact
             display_current_page
           when RESPONSE
             process_response
           end
         end
 
-        # TODO: Check menu_function and page to determine if this is the correct page
-
         def process_response
-          # TODO: Add logic to save first name of contact
-          # return unless @ussd_body.present?
-
+          save_data
           Page::Contact::Create::Last.process(@params.merge({ activity_type: REQUEST, page: '2',
                                                               menu_function: 'add_contact' }))
         end
@@ -41,6 +36,10 @@ module Page
 
           # set @message_prepend to message
           @message_prepend + message
+        end
+
+        def save_data
+          store_data({ first_name: @ussd_body })
         end
       end
     end

@@ -16,7 +16,7 @@ module Page
         private
 
         def process_response
-          Page::Main::First.process(@params.merge({ activity_type: REQUEST }))
+          Page::Confirm::Save.process(@params.merge(activity_type: REQUEST))
         end
 
         def display_current_page
