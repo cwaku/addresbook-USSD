@@ -29,7 +29,13 @@ module Page
         when '3'
           Menu::Delete::Contact.process(@params.merge({ activity_type: REQUEST }))
         when '4'
-          Menu::Edit::Contact.process(@params.merge({ activity_type: REQUEST }))
+          message = display_contatcs(@mobile_number)
+          if message.empty?
+            @message_prepend = "No Contacts. Please add some contacts \n"
+            display_current_page
+          else
+            Menu::Edit::Contact.process(@params.merge({ activity_type: REQUEST }))
+          end
         else
           @message_prepend = "Invalid Option. \n"
           display_current_page

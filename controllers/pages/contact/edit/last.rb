@@ -22,10 +22,10 @@ module Page
 
         def display_current_page
           display_page({
-                        activity_type: RESPONSE,
-                        page: '2',
-                        menu_function: 'edit_contact'
-                      })
+                         activity_type: RESPONSE,
+                         page: '2',
+                         menu_function: 'edit_contact'
+                       })
         end
 
         def display_message

@@ -16,6 +16,19 @@ module Menu
     def fetch_data
       @cache = Cache.fetch(@params).cache
       @data = JSON.parse(@cache).with_indifferent_access
+      # Get all contacts that belongs to user_number index
+      # @data = Contact.where(user_number: user_number)
+    end
+
+    def display_contatcs(user_number)
+      @contacts = Contact.where(user_number: user_number)
+      message = ''
+      @contacts.each do |contact, index|
+        message += <<~MSG
+          #{index + 1}. First Name: #{contact.first_name} Last Name: #{contact.last_name} Phone: #{contact.phone_number}
+        MSG
+      end
+      message
     end
 
     def store_data(new_data)

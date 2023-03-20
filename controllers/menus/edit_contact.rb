@@ -7,10 +7,12 @@ module Menu
       def process
         case @page
         when '1'
-          Page::Contact::Edit::First.process(@params)
+          Page::Contact::Edit::View.process(@params)
         when '2'
-          Page::Contact::Edit::Last.process(@params)
+          Page::Contact::Edit::First.process(@params)
         when '3'
+          Page::Contact::Edit::Last.process(@params)
+        when '4'
           Page::Contact::Edit::Phone.process(@params)
         end
       end

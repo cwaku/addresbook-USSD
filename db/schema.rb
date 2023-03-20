@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_230_316_124_135) do
+ActiveRecord::Schema[7.0].define(version: 20_230_320_092_015) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -41,16 +41,13 @@ ActiveRecord::Schema[7.0].define(version: 20_230_316_124_135) do
   end
 
   create_table 'contacts', force: :cascade do |t|
-    t.string 'firstname'
-    t.string 'lastname'
-    t.string 'phone'
-    t.text 'remarks'
-    t.bigint 'user_id', null: false
-    t.bigint 'suburb_id', null: false
+    t.string 'first_name'
+    t.string 'last_name'
+    t.string 'mobile_number'
+    t.string 'user_number'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
-    t.index ['suburb_id'], name: 'index_contacts_on_suburb_id'
-    t.index ['user_id'], name: 'index_contacts_on_user_id'
+    t.index ['user_number'], name: 'index_contacts_on_user_number'
   end
 
   create_table 'permissions', force: :cascade do |t|
@@ -128,8 +125,6 @@ ActiveRecord::Schema[7.0].define(version: 20_230_316_124_135) do
 
   add_foreign_key 'cities', 'regions'
   add_foreign_key 'cities', 'users'
-  add_foreign_key 'contacts', 'suburbs'
-  add_foreign_key 'contacts', 'users'
   add_foreign_key 'regions', 'users'
   add_foreign_key 'suburbs', 'cities'
   add_foreign_key 'suburbs', 'users'

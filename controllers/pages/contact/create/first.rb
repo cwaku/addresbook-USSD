@@ -21,15 +21,15 @@ module Page
           # return unless @ussd_body.present?
 
           Page::Contact::Create::Last.process(@params.merge({ activity_type: REQUEST, page: '2',
-                                                      menu_function: 'add_contact' }))
+                                                              menu_function: 'add_contact' }))
         end
 
         def display_current_page
           display_page({
-                        activity_type: RESPONSE,
-                        page: '1',
-                        menu_function: 'add_contact'
-                      })
+                         activity_type: RESPONSE,
+                         page: '1',
+                         menu_function: 'add_contact'
+                       })
         end
 
         def display_message

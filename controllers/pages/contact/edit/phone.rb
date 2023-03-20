@@ -21,18 +21,18 @@ module Page
 
         def display_current_page
           display_page({
-                        activity_type: RESPONSE,
-                        page: '3',
-                        menu_function: 'edit_contact'
-                      })
+                         activity_type: RESPONSE,
+                         page: '3',
+                         menu_function: 'edit_contact'
+                       })
         end
 
-        def display_message 
+        def display_message
           # display message
           message = <<~MSG
             Please enter the phone number of the contact
           MSG
-          # message
+          # messagedWgpo%Rjb^iyc4%
 
           # set @message_prepend to message
           @message_prepend + message
