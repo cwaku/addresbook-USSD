@@ -21,13 +21,24 @@ module Page
         case @ussd_body
         when '1'
           # TODO: Add logic to handle option 1 to request for first name of contact
-
-          Menu::Create::Contact.process(@params.merge({ activity_type: REQUEST }))
+            Menu::Create::Contact.process(@params.merge({ activity_type: REQUEST }))
         when '2'
           # TODO: Add logic to handle option 2 to view contacts
-          Menu::View::Contact.process(@params.merge({ activity_type: REQUEST }))
+          message = display_contatcs(@mobile_number)
+          if message.empty?
+            @message_prepend = "No Contacts. Please add some contacts \n"
+            display_current_page
+          else
+            Menu::View::Contact.process(@params.merge({ activity_type: REQUEST }))
+          end
         when '3'
-          Menu::Delete::Contact.process(@params.merge({ activity_type: REQUEST }))
+          message = display_contatcs(@mobile_number)
+          if message.empty?
+            @message_prepend = "No Contacts. Please add some contacts \n"
+            display_current_page
+          else
+            Menu::Delete::Contact.process(@params.merge({ activity_type: REQUEST }))
+          end
         when '4'
           message = display_contatcs(@mobile_number)
           if message.empty?
@@ -54,7 +65,7 @@ module Page
       def display_message
         # display message
         message = <<~MSG
-          Welcome to address book app. Please select an option
+          Welcome. Please select an option
           1. Add contact
           2. View contacts
           3. Delete contact

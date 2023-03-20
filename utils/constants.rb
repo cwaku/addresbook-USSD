@@ -7,3 +7,5 @@ RESPONSE = 'response'
 MAIN_MENU = 'main_menu'
 
 ADD_CONTACT = 'add_contact'
+
+CONFIRMATION = 'confirmation'
