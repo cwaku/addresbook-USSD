@@ -22,15 +22,17 @@ module Page
         when '1'
           # TODO: Add logic to handle option 1 to request for first name of contact
 
-          Menu::Contact.process(@params.merge({ activity_type: REQUEST, page: '1',
-                                                menu_function: 'add_contact' }))
+          Menu::Create::Contact.process(@params.merge({ activity_type: REQUEST }))
         when '2'
           # TODO: Add logic to handle option 2 to view contacts
-          display_page({
-                         activity_type: REQUEST,
-                         page: '2',
-                         menu_function: 'view_contacts'
-                       })
+          Menu::View::Contact.process(@params.merge({ activity_type: REQUEST }))
+        when '3'
+          Menu::Delete::Contact.process(@params.merge({ activity_type: REQUEST }))
+        when '4'
+          Menu::Edit::Contact.process(@params.merge({ activity_type: REQUEST }))
+        else
+          @message_prepend = "Invalid Option. \n"
+          display_current_page
         end
       end
 

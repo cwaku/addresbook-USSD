@@ -29,11 +29,9 @@ module Page
     # process response method that takes a clase name, activity type, page and menu function as arguments calss the process method of the class
     def process_response(options = {})
       # check if menu function is add_contact
-      case @menu_function
+      case options[:menu_function]
       when 'add_contact'
-        class_object = Page::Contact::Create.const_get(options[:class_name]) # get class name TODO: add capitalization
-        class_object.process(@params.merge({ activity_type: REQUEST, page: options[:page],
-                                             menu_function: options[:menu_function] }))
+        Menu::Manager.process(@params.merge(activity_type: REQUEST))
       when 'edit_contact'
         class_object = Page::Contact::Edit.const_get(options[:class_name]) # get class name TODO: add capitalization
         class_object.process(@params.merge({ activity_type: REQUEST, page: options[:page],
