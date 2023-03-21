@@ -39,9 +39,16 @@ module Page
   
           def save_data
             # Find suburb_id from database
-            suburb_option = @ussd_body.to_i
-            suburb_id = Suburb.find_by(name: @ussd_body).id
-            store_data({ suburb_id: suburb_id, menu_function: ADD_CONTACT, user_number: @mobile_number })
+            ussd_body = @ussd_body.to_i
+            display_cities
+            if ussd_body > 0 && ussd_body <= @cities.count
+                # find region with ussd_body
+                city = @cities[ussd_body - 1]
+                # find region_id
+                @city_id = city.id
+            end
+            # suburb_id = Suburb.find_by(name: @ussd_body).id
+            store_data({ city_id: @city_id, menu_function: ADD_CONTACT, user_number: @mobile_number })
           end
         end
       end

@@ -20,19 +20,22 @@ module Menu
     end
 
     def display_contatcs(user_number)
-      @contacts = User.where(phone: user_number) # active: true, del: false)
-      # store_data({ user_id:
+      user = User.find_by(phone: user_number)
+      @contacts = Contact.where(user_id: user.id)
+
+      store_data({ user_id: user.id })
       message = ''
       @contacts.each_with_index do |contact, index|
         message += <<~MSG
-          #{index + 1}. First Name: #{contact.first_name} Last Name: #{contact.last_name} Phone: #{contact.mobile_number}
+          #{index + 1}. First Name: #{contact.firstname} Last Name: #{contact.lastname} Phone: #{contact.phone}
         MSG
       end
       message
     end
 
     def display_suburbs
-      @suburbs = Suburb.all
+      fetch_data
+      @suburbs = Suburb.where(city_id: @data[:city_id])
       message = ''
       @suburbs.each_with_index do |suburb, index|
         message += <<~MSG
@@ -54,7 +57,8 @@ module Menu
     end
 
     def display_cities
-      @suburbs = City.all
+      fetch_data
+      @cities = City.where(region_id: @data[:region_id])
       message = ''
       @cities.each_with_index do |city, index|
         message += <<~MSG
@@ -107,11 +111,13 @@ module Menu
 
     def save_info
       # save contact info here
+      user = User.find_by(phone: @mobile_number)
       info = {
-        first_name: @data['first_name'],
-        last_name: @data['last_name'],
-        mobile_number: @data['mobile_number'],
-        user_number: @data['user_number']
+        firstname: @data['first_name'],
+        lastname: @data['last_name'],
+        phone: @data['mobile_number'],
+        suburb_id: @data['suburb_id'].to_i,
+        user_id: user.id.to_i
       }
 
       # check menu function
