@@ -3,14 +3,16 @@
 class CreateContacts < ActiveRecord::Migration[7.0]
   def change
     create_table :contacts do |t|
-      t.string :first_name
-      t.string :last_name
-      t.string :mobile_number
-      t.string :user_number
+      t.string :firstname
+      t.string :lastname
+      t.string :phone
+      t.text :remarks
+      t.boolean :del, default: false
+      t.boolean :active, default: true
+      t.references :user, null: false, foreign_key: true
+      t.references :suburb, null: false, foreign_key: true
 
-      t.timestamps null: false
+      t.timestamps
     end
-
-    add_index :contacts, :user_number
   end
 end

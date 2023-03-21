@@ -21,7 +21,7 @@ module Page
         case @ussd_body
         when '1'
           # TODO: Add logic to handle option 1 to request for first name of contact
-            Menu::Create::Contact.process(@params.merge({ activity_type: REQUEST }))
+          Menu::Create::Contact.process(@params.merge({ activity_type: REQUEST }))
         when '2'
           # TODO: Add logic to handle option 2 to view contacts
           message = display_contatcs(@mobile_number)

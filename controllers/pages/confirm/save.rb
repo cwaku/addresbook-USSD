@@ -33,10 +33,10 @@ module Page
 
       def display_current_page
         display_page({
-                      page: '1',
-                      menu_function: CONFIRMATION,
-                      activity_type: RESPONSE
-                    })
+                       page: '1',
+                       menu_function: CONFIRMATION,
+                       activity_type: RESPONSE
+                     })
       end
 
       def display_message
@@ -51,9 +51,6 @@ module Page
 
         @message_prepend + message
       end
-
-      
-      
     end
   end
 end

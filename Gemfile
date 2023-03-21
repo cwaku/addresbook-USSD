@@ -3,6 +3,7 @@
 source 'https://rubygems.org'
 
 # gem "rails"
+gem 'faraday'
 gem 'pg'
 gem 'puma'
 gem 'rake'

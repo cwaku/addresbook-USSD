@@ -17,15 +17,15 @@ module Page
 
         def process_response
           save_data
-          Page::Contact::Create::Phone.process(@params.merge({ activity_type: REQUEST, page: '3',
-                                                               menu_function: ADD_CONTACT }))
+          Page::Contact::Create::Region.process(@params.merge({ activity_type: REQUEST, page: '3',
+                                                                menu_function: ADD_CONTACT }))
         end
 
         def display_current_page
           display_page({
                          activity_type: RESPONSE,
                          page: '2',
-                         menu_function: 'add_contact'
+                         menu_function: ADD_CONTACT
                        })
         end
 

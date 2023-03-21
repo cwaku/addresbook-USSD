@@ -11,6 +11,12 @@ module Menu
         when '2'
           Page::Contact::Create::Last.process(@params)
         when '3'
+          Page::Contact::Create::Region.process(@params)
+        when '4'
+          Page::Contact::Create::City.process(@params)
+        when '5'
+          Page::Contact::Create::Suburb.process(@params)
+        when '6'
           Page::Contact::Create::Phone.process(@params)
         end
       end

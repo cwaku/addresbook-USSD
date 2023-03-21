@@ -20,11 +20,45 @@ module Menu
     end
 
     def display_contatcs(user_number)
-      @contacts = Contact.where(user_number: user_number)
+      @contacts = User.where(phone: user_number) # active: true, del: false)
+      # store_data({ user_id:
       message = ''
       @contacts.each_with_index do |contact, index|
         message += <<~MSG
           #{index + 1}. First Name: #{contact.first_name} Last Name: #{contact.last_name} Phone: #{contact.mobile_number}
+        MSG
+      end
+      message
+    end
+
+    def display_suburbs
+      @suburbs = Suburb.all
+      message = ''
+      @suburbs.each_with_index do |suburb, index|
+        message += <<~MSG
+          #{index + 1}. #{suburb.name}
+        MSG
+      end
+      message
+    end
+
+    def display_regions
+      @regions = Region.all
+      message = ''
+      @regions.each_with_index do |region, index|
+        message += <<~MSG
+          #{index + 1}. #{region.name}
+        MSG
+      end
+      message
+    end
+
+    def display_cities
+      @suburbs = City.all
+      message = ''
+      @cities.each_with_index do |city, index|
+        message += <<~MSG
+          #{index + 1}. #{city.name}
         MSG
       end
       message
@@ -74,10 +108,10 @@ module Menu
     def save_info
       # save contact info here
       info = {
-          first_name: @data['first_name'],
-          last_name: @data['last_name'],
-          mobile_number: @data['mobile_number'],
-          user_number: @data['user_number']
+        first_name: @data['first_name'],
+        last_name: @data['last_name'],
+        mobile_number: @data['mobile_number'],
+        user_number: @data['user_number']
       }
 
       # check menu function
@@ -93,9 +127,6 @@ module Menu
         @contact.update(info)
       end
     end
-
-
-    
 
     private
 

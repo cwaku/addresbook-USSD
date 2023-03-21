@@ -2,10 +2,9 @@
 
 module Page
   module Contact
-    module Edit
+    module Delete
       class View < Menu::Base
         def process
-          fetch_data
           case @activity_type
           when REQUEST
             # TODO: Add logic to handle request for first name of contact
@@ -23,14 +22,8 @@ module Page
           when '0'
             Page::Main::First.process(@params.merge({ activity_type: REQUEST }))
           else
-            store_data(contacts: @contacts)
-            ussd_body = @ussd_body.to_i
-            puts "DAAAAAAAAAAAAATTTAA #{@data}"
-            if ussd_body.positive? && ussd_body <= @data.count
-              contact = @data[ussd_body - 1]
-              Page::Contact::Edit::First.process(@params.merge({ activity_type: REQUEST, page: '2',
-                                                                 menu_function: EDIT_CONTACT, contact: contact }))
-            end
+            Page::Contact::Edit::First.process(@params.merge({ activity_type: REQUEST, page: '2',
+                                                               menu_function: 'add_contact' }))
           end
         end
 
@@ -38,14 +31,14 @@ module Page
           display_page({
                          activity_type: RESPONSE,
                          page: '1',
-                         menu_function: EDIT_CONTACT
+                         menu_function: DELETE_CONTACT
                        })
         end
 
         def display_message
           message = display_contatcs(@mobile_number)
           update_message = <<~MSG
-            Please select the contact you want to edit
+            Please select the contact you want to delete
           MSG
           @message_prepend + update_message + message
           #   @message_prepend += message

@@ -23,7 +23,7 @@ module Page
           display_page({
                          activity_type: RESPONSE,
                          page: '1',
-                         menu_function: 'add_contact'
+                         menu_function: ADD_CONTACT
                        })
         end
 
