@@ -4,6 +4,7 @@ root = ::File.dirname(__FILE__)
 require ::File.join(root, 'base')
 require ::File.join(root, 'main/first')
 require ::File.join(root, 'confirm/save.rb')
+require ::File.join(root, 'delete/view.rb')
 require ::File.join(root, 'contact/view/first.rb')
 
 require ::File.join(root, 'contact/create/first.rb')
