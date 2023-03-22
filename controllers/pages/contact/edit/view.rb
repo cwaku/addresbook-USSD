@@ -23,13 +23,18 @@ module Page
           when '0'
             Page::Main::First.process(@params.merge({ activity_type: REQUEST }))
           else
+            display_contatcs(@mobile_number)
             store_data(contacts: @contacts)
+            fetch_data
             ussd_body = @ussd_body.to_i
             puts "DAAAAAAAAAAAAATTTAA #{@data}"
-            if ussd_body.positive? && ussd_body <= @data.count
-              contact = @data[ussd_body - 1]
+            if ussd_body.positive? && ussd_body <= @data['contacts'].count
+              contact = @data['contacts'][ussd_body - 1]
+              store_data({ contact: contact })
               Page::Contact::Edit::First.process(@params.merge({ activity_type: REQUEST, page: '2',
                                                                  menu_function: EDIT_CONTACT, contact: contact }))
+            else
+              puts "ERRRRRROOOOOOOR #{@data['contacts']}"
             end
           end
         end
@@ -45,7 +50,7 @@ module Page
         def display_message
           message = display_contatcs(@mobile_number)
           update_message = <<~MSG
-            Please select the contact you want to edit
+            Select contact to edit
           MSG
           @message_prepend + update_message + message
           #   @message_prepend += message

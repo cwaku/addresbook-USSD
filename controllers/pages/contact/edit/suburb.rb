@@ -2,7 +2,7 @@
 
 module Page
   module Contact
-    module Create
+    module Edit
       class Suburb < Menu::Base
         def process
           case @activity_type
@@ -17,15 +17,15 @@ module Page
 
         def process_response
           save_data
-          Page::Contact::Create::Phone.process(@params.merge({ activity_type: REQUEST, page: '3',
-                                                               menu_function: ADD_CONTACT }))
+          Page::Contact::Edit::Phone.process(@params.merge({ activity_type: REQUEST, page: '3',
+                                                               menu_function: EDIT_CONTACT }))
         end
 
         def display_current_page
           display_page({
                          activity_type: RESPONSE,
-                         page: '5',
-                         menu_function: ADD_CONTACT
+                         page: '6',
+                         menu_function: EDIT_CONTACT
                        })
         end
 
@@ -46,7 +46,6 @@ module Page
             suburb = @suburbs[ussd_body - 1]
             # find suburb_id
             @suburb_id = suburb.id
-            puts "YOOOOOOOOOO #{@suburb_id}"
           end
           #   suburb_option = @ussd_body.to_i
           #   suburb_id = Suburb.find_by(name: @ussd_body).id

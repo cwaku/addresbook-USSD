@@ -16,26 +16,38 @@ module Page
         private
 
         def process_response
+          case @ussd_body
+          when '00'
+            Page::Confirm::Save.process(@params.merge(activity_type: REQUEST))
+          else
+            # @params[:contact]['phone'] = @ussd_body
+            save_data
+          end
           Page::Confirm::Save.process(@params.merge(activity_type: REQUEST))
         end
 
         def display_current_page
           display_page({
                          activity_type: RESPONSE,
-                         page: '3',
-                         menu_function: 'edit_contact'
+                         page: '6',
+                         menu_function: EDIT_CONTACT
                        })
         end
 
         def display_message
           # display message
+          fetch_data
           message = <<~MSG
-            Please enter the phone number of the contact
+            Enter phone number, or 00 to keep "#{@data[:contact]['phone']}"
           MSG
-          # messagedWgpo%Rjb^iyc4%
+          # message
 
           # set @message_prepend to message
           @message_prepend + message
+        end
+
+        def save_data
+          store_data({ mobile_number: @ussd_body, menu_function: EDIT_CONTACT, user_number: @mobile_number })
         end
       end
     end

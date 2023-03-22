@@ -27,7 +27,7 @@ module Menu
       message = ''
       @contacts.each_with_index do |contact, index|
         message += <<~MSG
-          #{index + 1}. First Name: #{contact.firstname} Last Name: #{contact.lastname} Phone: #{contact.phone}
+          #{index + 1}. Name: #{contact.firstname} #{contact.lastname} Phone: #{contact.phone}
         MSG
       end
       message
@@ -111,7 +111,7 @@ module Menu
 
     def save_info
       # save contact info here
-      user = User.find_by(phone: @mobile_number)
+      user = User.find_by(phone: @mobile_number) # active_status: true, del_status: false)
       info = {
         firstname: @data['first_name'],
         lastname: @data['last_name'],
@@ -120,17 +120,27 @@ module Menu
         user_id: user.id.to_i
       }
 
+      # contact = Contact.find_by(phone
+      # Find contact from database with mobile number where active is true and del is fasle
+      
       # check menu function
       puts "Heeeeeeeeeey #{@data['menu_function']}"
       case @data['menu_function']
       when 'add_contact'
         # add contact
         Contact.create(info)
-      #   @contact.save
+        #   @contact.save
       when 'edit_contact'
+        contact = Contact.find_by(phone: @data['mobile_number'], active: true, del: false)
         # edit contact
         # @contact = Contact.find(@data['contact_id'])
-        @contact.update(info)
+        
+        # Create a new contact and update active and del of previous contact
+        new_contact = Contact.create(info)
+        contact.update(active: false, del: true, new_contact_id: new_contact.id)
+        # contact.update(active: false, del: true)
+        # contact.update(active: false, del: true, new_contact_id: new_contact.id)
+        # @contact.update(info)
       end
     end
 

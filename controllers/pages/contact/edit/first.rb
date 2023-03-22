@@ -19,28 +19,40 @@ module Page
         def process_response
           # TODO: Add logic to save first name of contact
           # return unless @ussd_body.present?
-
-          Page::Contact::Edit::Last.process(@params.merge({ activity_type: REQUEST, page: '2',
-                                                            menu_function: 'add_contact' }))
+          case @ussd_body
+          when '00'
+            Page::Contact::Edit::Last.process(@params.merge({ activity_type: REQUEST, page: '2',
+                                                              contact: @params[:contact] }))
+          else
+            # @params[:contact]['firstname'] = @ussd_body
+            save_data
+          end
+          Page::Contact::Edit::Last.process(@params.merge({ activity_type: REQUEST }))
+          # end
         end
 
         def display_current_page
           display_page({
                          activity_type: RESPONSE,
-                         page: '1',
-                         menu_function: 'edit_contact'
+                         page: '2',
+                         menu_function: EDIT_CONTACT
                        })
         end
 
         def display_message
+          fetch_data
           # display message
           message = <<~MSG
-            Please enter the first name of the contact
+            Enter first name, or 00 to keep "#{@data[:contact]['firstname']}"
           MSG
           # message
 
           # set @message_prepend to message
           @message_prepend + message
+        end
+
+        def save_data
+          store_data({ first_name: @ussd_body })
         end
       end
     end

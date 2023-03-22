@@ -2,8 +2,8 @@
 
 module Page
   module Contact
-    module Create
-      class Suburb < Menu::Base
+    module Edit
+      class City < Menu::Base
         def process
           case @activity_type
           when REQUEST
@@ -17,22 +17,22 @@ module Page
 
         def process_response
           save_data
-          Page::Contact::Create::Phone.process(@params.merge({ activity_type: REQUEST, page: '3',
-                                                               menu_function: ADD_CONTACT }))
+          Page::Contact::Edit::Suburb.process(@params.merge({ activity_type: REQUEST, page: '3',
+                                                                menu_function: EDIT_CONTACT }))
         end
 
         def display_current_page
           display_page({
                          activity_type: RESPONSE,
                          page: '5',
-                         menu_function: ADD_CONTACT
+                         menu_function: EDIT_CONTACT
                        })
         end
 
         def display_message
-          message = display_suburbs
+          message = display_cities
           update_message = <<~MSG
-            Select suburb
+            Select city
           MSG
           @message_prepend + update_message + message
         end
@@ -40,17 +40,15 @@ module Page
         def save_data
           # Find suburb_id from database
           ussd_body = @ussd_body.to_i
-          display_suburbs
-          if ussd_body.positive? && ussd_body <= @suburbs.count
+          display_cities
+          if ussd_body.positive? && ussd_body <= @cities.count
             # find region with ussd_body
-            suburb = @suburbs[ussd_body - 1]
-            # find suburb_id
-            @suburb_id = suburb.id
-            puts "YOOOOOOOOOO #{@suburb_id}"
+            city = @cities[ussd_body - 1]
+            # find region_id
+            @city_id = city.id
           end
-          #   suburb_option = @ussd_body.to_i
-          #   suburb_id = Suburb.find_by(name: @ussd_body).id
-          store_data({ suburb_id: @suburb_id, menu_function: ADD_CONTACT, user_number: @mobile_number })
+          # suburb_id = Suburb.find_by(name: @ussd_body).id
+          store_data({ city_id: @city_id, menu_function: ADD_CONTACT, user_number: @mobile_number })
         end
       end
     end

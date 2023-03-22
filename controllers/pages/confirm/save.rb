@@ -41,12 +41,14 @@ module Page
 
       def display_message
         message = <<~MSG
-          You have selected
+          Details:
+          Name: #{@data[:first_name]} #{@data[:last_name]}
+          Number: #{@data[:mobile_number]}
 
-          1. Proceed and return to main menu
-          2. Cancel and return to main menu
+          1. Proceed & return to menu
+          2. Cancel and return to menu
 
-          00. Cancel and exit app
+          00. Cancel and exit
         MSG
 
         @message_prepend + message

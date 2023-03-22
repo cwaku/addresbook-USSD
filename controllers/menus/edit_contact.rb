@@ -13,6 +13,12 @@ module Menu
         when '3'
           Page::Contact::Edit::Last.process(@params)
         when '4'
+          Page::Contact::Edit::Region.process(@params)
+        when '5'
+          Page::Contact::Edit::City.process(@params)
+        when '6'
+          Page::Contact::Edit::Suburb.process(@params)
+        when '7'
           Page::Contact::Edit::Phone.process(@params)
         end
       end

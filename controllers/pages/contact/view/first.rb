@@ -17,7 +17,7 @@ module Page
         when '00'
           Page::Main::First.process(@params.merge({ activity_type: REQUEST }))
         else
-            # TODO: Redirect and attempt pagination
+          # TODO: Redirect and attempt pagination
           Page::Contact::Edit::First.process(@params.merge({ activity_type: REQUEST, page: '2',
                                                              menu_function: 'add_contact' }))
         end
