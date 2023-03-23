@@ -40,10 +40,13 @@ module Page
       end
 
       def display_message
+        first_name = @data[:first_name] || @data['contact']['firstname']
+        last_name = @data[:last_name] || @data['contact']['lastname']
+        mobile_number = @data[:mobile_number] || @data['contact']['phone']
         message = <<~MSG
           Details:
-          Name: #{@data[:first_name]} #{@data[:last_name]}
-          Number: #{@data[:mobile_number]}
+          Name: #{first_name} #{last_name}
+          Number: #{mobile_number}
 
           1. Proceed & return to menu
           2. Cancel and return to menu

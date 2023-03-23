@@ -22,8 +22,22 @@ module Page
           when '0'
             Page::Main::First.process(@params.merge({ activity_type: REQUEST }))
           else
-            Page::Contact::Edit::First.process(@params.merge({ activity_type: REQUEST, page: '2',
-                                                               menu_function: 'add_contact' }))
+            puts "STARTING BODY ELSE"
+            display_contatcs(@mobile_number)
+            store_data(contacts: @contacts)
+            fetch_data
+            ussd_body = @ussd_body.to_i
+            puts "DAAAAAAAAAAAAATTTAA #{@data}"
+            if ussd_body.positive? && ussd_body <= @data['contacts'].count
+              contact = @data['contacts'][ussd_body - 1]
+              store_data({ contact: contact })
+              Page::Confirm::Save.process(@params.merge({ activity_type: REQUEST,
+                                                          menu_function: DELETE_CONTACT, contact: contact }))
+            else
+              puts "ERRRRRROOOOOOOR #{@data['contacts']}"
+            end
+            # Page::Contact::Edit::First.process(@params.merge({ activity_type: REQUEST, page: '2',
+            #                                                    menu_function: 'add_contact' }))
           end
         end
 
@@ -38,7 +52,7 @@ module Page
         def display_message
           message = display_contatcs(@mobile_number)
           update_message = <<~MSG
-            Please select the contact you want to delete
+            Select contact to delete
           MSG
           @message_prepend + update_message + message
           #   @message_prepend += message

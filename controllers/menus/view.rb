@@ -8,12 +8,6 @@ module Menu
         case @page
         when '1'
           Page::Contact::View.process(@params)
-        when '2'
-          Page::Contact::First.process(@params)
-        when '3'
-          Page::Contact::Last.process(@params)
-        when '4'
-          Page::Contact::Phone.process(@params)
         end
       end
     end

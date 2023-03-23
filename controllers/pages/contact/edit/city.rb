@@ -18,7 +18,7 @@ module Page
         def process_response
           save_data
           Page::Contact::Edit::Suburb.process(@params.merge({ activity_type: REQUEST, page: '3',
-                                                                menu_function: EDIT_CONTACT }))
+                                                              menu_function: EDIT_CONTACT }))
         end
 
         def display_current_page

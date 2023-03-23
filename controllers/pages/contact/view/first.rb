@@ -15,6 +15,7 @@ module Page
       def process_response
         case @ussd_body
         when '00'
+          puts "YOOOOOOOOOOOOOOOOOOOOOOOOOO"
           Page::Main::First.process(@params.merge({ activity_type: REQUEST }))
         else
           # TODO: Redirect and attempt pagination
@@ -22,12 +23,13 @@ module Page
                                                              menu_function: 'add_contact' }))
         end
       end
+      
 
       def display_current_page
         display_page({
                        activity_type: RESPONSE,
                        page: '1',
-                       menu_function: 'view_contact'
+                       menu_function: VIEW_CONTACT
                      })
       end
 

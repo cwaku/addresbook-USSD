@@ -9,10 +9,12 @@ module Menu
       case tracker.menu_function
       when 'main_menu'
         Menu::Main.process(params)
-      when 'add_contact' || 'edit_contact'
+      when 'add_contact'
         Menu::Create::Contact.process(params)
       when 'edit_contact'
         Menu::Edit::Contact.process(params)
+      when 'view_contact'
+        Menu::View::Contact.process(params)
       when 'confirmation'
         Menu::Confirm.process(params)
       end

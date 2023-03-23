@@ -45,7 +45,7 @@ module Page
           # set @message_prepend to message
           @message_prepend + message
         end
-        
+
         def save_data
           store_data({ last_name: @ussd_body })
         end
