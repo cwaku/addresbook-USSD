@@ -12,7 +12,6 @@ module Menu
       @mobile_number = @params[:msisdn]
       @session_id = @params[:session_id]
 
-      validate_user
       initialize_pages
     end
 
@@ -23,7 +22,7 @@ module Menu
 
     def display_contatcs(user_number)
       user = User.find_by(phone: user_number)
-      @contacts = Contact.where(user_id: user.id)
+      @contacts = Contact.where(user_id: user.id, active: true, del: false)
 
       store_data({ user_id: user.id })
       message = ''
@@ -133,13 +132,13 @@ module Menu
         Contact.create(info)
         #   @contact.save
       when 'edit_contact'
-        contact = Contact.find_by(phone: @data['mobile_number'], active: true, del: false)
+        contact = Contact.find_by(phone: @data['contact']['phone'], active: true, del: false)
         # edit contact
         # @contact = Contact.find(@data['contact_id'])
 
         # Create a new contact and update active and del of previous contact
-        new_contact = Contact.create(info)
-        contact.update(active: false, del: true, new_contact_id: new_contact.id)
+        Contact.create(info)
+        contact.update(active: false, del: true)
         # contact.update(active: false, del: true)
         # contact.update(active: false, del: true, new_contact_id: new_contact.id)
         # @contact.update(info)
@@ -153,17 +152,6 @@ module Menu
       # @pagination_page = @tracker&.pagination_page.to_i
       # @page = '1' if @page.nil?
       # @page = @page.to_i
-    end
-
-    def validate_user
-      return if @mobile_number.nil?
-
-      user = User.find_by(phone: @mobile_number)
-      return unless user.nil?
-
-      Session::Manager.end(
-        @params.merge(display_message: 'You are not authorized to use this service')
-      )
     end
   end
 end

@@ -18,18 +18,19 @@ module Page
         def process_response
           case @ussd_body
           when '00'
-            Page::Confirm::Save.process(@params.merge(activity_type: REQUEST))
+            # TODO: Noting here
+            puts "NOTTTTTTTTHHHHHHIIIIIIIINGGGGGG"
           else
-            # @params[:contact]['phone'] = @ussd_body
             save_data
           end
+          puts "NOTTTTTTTTHHHHHHIIIIIIIINGGGGGG"
           Page::Confirm::Save.process(@params.merge(activity_type: REQUEST))
         end
 
         def display_current_page
           display_page({
                          activity_type: RESPONSE,
-                         page: '6',
+                         page: '7',
                          menu_function: EDIT_CONTACT
                        })
         end

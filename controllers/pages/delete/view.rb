@@ -22,7 +22,7 @@ module Page
           when '0'
             Page::Main::First.process(@params.merge({ activity_type: REQUEST }))
           else
-            puts "STARTING BODY ELSE"
+            puts 'STARTING BODY ELSE'
             display_contatcs(@mobile_number)
             store_data(contacts: @contacts)
             fetch_data
