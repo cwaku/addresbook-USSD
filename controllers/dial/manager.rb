@@ -7,9 +7,8 @@ module Dial
       params = JSON.parse(json)&.with_indifferent_access
       @message_type = params[:msg_type]
       @params = params
-
     end
-    
+
     def process
       case @message_type
       when '0'
@@ -18,9 +17,9 @@ module Dial
         continous_dial
       end
     end
-    
+
     private
-    
+
     def initial_dial
       # validate_user
       # TODO: Add logic to handle initial dial
@@ -34,7 +33,7 @@ module Dial
     end
 
     def user?
-      user = User.find_by("RIGHT(phone, 9) = ?", @params[:msisdn].last(9))
+      user = User.find_by('RIGHT(phone, 9) = ?', @params[:msisdn].last(9))
       !user.nil?
     end
 

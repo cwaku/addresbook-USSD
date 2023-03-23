@@ -19,11 +19,11 @@ module Page
           case @ussd_body
           when '00'
             # TODO: Noting here
-            puts "NOTTTTTTTTHHHHHHIIIIIIIINGGGGGG"
+            puts 'NOTTTTTTTTHHHHHHIIIIIIIINGGGGGG'
           else
             save_data
           end
-          puts "NOTTTTTTTTHHHHHHIIIIIIIINGGGGGG"
+          puts 'NOTTTTTTTTHHHHHHIIIIIIIINGGGGGG'
           Page::Confirm::Save.process(@params.merge(activity_type: REQUEST))
         end
 
